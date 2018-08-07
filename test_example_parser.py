@@ -1,7 +1,6 @@
 import pytest
 import random
 import string
-import re
 
 import example_parser
 from globalgiving_utilities import Organization
