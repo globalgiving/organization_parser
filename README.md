@@ -10,6 +10,7 @@ All parsed data should be put into a `Organization` object.  An internal tool ca
 1. Determine the "short name" for the data source you will be parsing.  For example:
     * `gbchc` could be for British Charity Commision data
     * `za` for data from the South African government
+    * For country codes, see: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements
 1. Create a new file named `SHORTNAME_parser.py`
 
    ```python

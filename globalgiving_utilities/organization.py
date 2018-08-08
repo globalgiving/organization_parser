@@ -123,7 +123,8 @@ class Organization(object):
 
         Args:
             registration_country: 2-letter country code of the country the
-                registration is for.  Examples: "US", "GB"
+                registration is for.  Examples: "US", "GB".
+                See: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements
             registration_id: The government registration ID. No spaces or
                 hyphens should be included.  Letters should be un uppercase
                 unless the registration ID is case sensitive (if the issuing
