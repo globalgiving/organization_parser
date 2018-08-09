@@ -69,22 +69,27 @@ test_cases = [
 def test_parse_record(monkeypatch,entry,output):
     global called
     global temp_org
-    called = False
+    called = [False,False]
     temp_org = None
 
     class MockOrganization(Organization):
         def __init__(self):
             global called
             global temp_org
-            called = True
+            called[0] = True
             temp_org = self
             super(MockOrganization, self).__init__()
+        def upload(self):
+            global called
+            called[1] = True
 
     monkeypatch.setattr(example_parser, "Organization", MockOrganization)
     example_parser.parse_record(entry)
     if output:
-        assert called
+        assert called[0]
+        assert called[1]
         assert temp_org.id == output['id']
         assert temp_org.__dict__ == output
     else:
-        assert not called
+        assert not called[0]
+        assert not called[1]

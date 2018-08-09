@@ -172,3 +172,12 @@ class Organization(object):
         if self._registration_id:
             output += "\n  Registration ID: {}". format(self._registration_id)
         return output
+
+    def upload(self):
+        """Stub method.
+
+        When we run this in production, this function will be replaced with
+        code that actually uplosds the organization record to GlobalGiving.
+
+        """
+        pass

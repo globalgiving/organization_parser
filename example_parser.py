@@ -24,7 +24,11 @@ def parse_record(entry):
         "country": "United States"
     }
     new_organization.mailing_address = {key: value for key, value in address.items() if value}
+
     print(new_organization.to_dict())
+
+    # Upload the data
+    new_organization.upload()
 
 def parse_file(filename):
     with open(filename) as data_file:
