@@ -32,11 +32,13 @@ def test_to_dict():
     org._registration_country = "US"
     org._registrations.append({"country":"US", "id":"1234"})
     org.external_field["something"] = "foo"
+    org.year_founded = "1999"
     assert org.to_dict() == {
         "id": "o.test.1234",
         "registration_country": "US",
         "registation_id": "1234",
         "registrations": [{"country":"US", "id":"1234"}],
         "name": "Test",
-        "something": "foo"
+        "something": "foo",
+        "year_founded": 1999
     }

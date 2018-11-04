@@ -156,7 +156,7 @@ class Organization(object):
             "website": self.website,
             "mailing_address": self.mailing_address,
             "phone": self.phone,
-            "year_founded": self.year_founded,
+            "year_founded": int(self.year_founded) if self.year_founded else None,
             "inactive": self.inactive or None
         }
         for key, value in self.external_field.items():
