@@ -19,12 +19,14 @@ All parsed data should be put into a `Organization` object.  An internal tool ca
 1. Write code to parse the new data (and possibly download it, though you can also assume that someone will manually download a new copy of it each time)
 1. Set the new organizations to have an id of `o.SHORTNAME.####` (More on this in the pydoc of organization.py)
 1. Clean up the organization name to be in "Title Case".
+1. Set the new organizations to have a source of the same value as the "short name".
 1. If there is a website URL for each organization, ensure they begin with `http://` or `https://`.
 1. Ensure these minimum fields are filled out for every organization:
     * id
     * name
     * registration id
     * registration country
+    * source
 1. Write tests to cover your code and ensure it is working properly
 
 ## How To Use `organization.py`
