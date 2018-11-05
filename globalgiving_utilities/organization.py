@@ -2,7 +2,7 @@
 
 from typing import Optional, Text, List, Dict
 
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 __all__ = [
     'Organization'
 ]
@@ -17,6 +17,7 @@ class Organization(object):
 
             id: o.irs.12345
             ids: {"irs": "12345"}
+            source: irs
             add_registration("US", "12345")
         
         The same would hold true for other databases.  Pick a "short name" for
@@ -35,6 +36,10 @@ class Organization(object):
             with key "irs" and value containing the EIN (the IRS's id number for
             the org) of the org.
         name: The name of this organization.  We would prefer this be in "Title Case".
+        source: The name of the source this data came from.  This should match the key
+            that you used in the ``ids`` attribute.  All of the data will be marked as
+            from that source.  If you need to add additional data which is from another
+            source, see ``add_alternative```.
         website: The full URL of the organization's website if it is known.
             Example: https://www.something.org/
         mailing_address: Address details of where the organization is
@@ -64,6 +69,11 @@ class Organization(object):
         year_founded: A number that is the year the org was originally founded.
         inactive: False if the org is still operating, otherwise True.
             Default: False
+        language: The language that the data is in.  This should be the two
+            letter ISO 639-1 code. Examples: "en", "es", "ja".
+            See: https://en.wikipedia.org/wiki/ISO_639-1
+
+            Default: en
         external_field: This is a key/value mapping of any additional
             information that can be gathered about the organization from the
             database it is being pulled from.  Some examples (but could really
@@ -83,20 +93,23 @@ class Organization(object):
         self._registration_country = None # type: Optional[Text]
         self._registration_id = None # type: Optional[Text]
         self._registrations = [] # type: List[Dict[Text, Text]]
+        self._alternatives = {} # type: Dict[Text, Dict[Text, Dict[Text, Text]]]
         self.ids = {}
         self.name = None # type: Optional[Text]
+        self.source = None # type: Optional[Text]
         self.website = None # type: Optional[Text]
         self.mailing_address = {}
         self.phone = None # type: Optional[Text]
         self.year_founded = None # type: Optional[int]
         self.inactive = False # type: Optional[bool]
+        self.language = "en" # type: Text
         self.external_field = {}
     
     def is_valid(self) -> bool: 
         """Checks if this organization is valid for importing.
 
-        A valid organization is one that has an id, a name, and a registration
-        (both the country and ID of registration).
+        A valid organization is one that has an id, a name, a source, and a
+        registration (both the country and ID of registration).
 
         Returns:
             True if this organization is valid, otherwise False.
@@ -104,6 +117,7 @@ class Organization(object):
         """
         if (self.id is None or
             self.name is None or
+            self.source is None or
             self._registration_country is None or
             self._registration_id is None
         ):
@@ -141,6 +155,28 @@ class Organization(object):
         }
         self._registrations.append(registration)
 
+    def add_alternative(self, field: Text, value: Text, source: Text, language: Text = "en"):
+        """Add an alternative value for a field.
+
+        Args:
+            field: The field that has an alternative value
+            value: The alternative value itself
+            source: The source that this alternative is from.
+            language: The language that the alternative value is in.  This
+                should be the two letter ISO 639-1 code.
+                Examples: "en", "es", "ja".
+                See: https://en.wikipedia.org/wiki/ISO_639-1
+
+                Default: en
+        """
+        _language = language if language else "en"
+        if field not in self._alternatives:
+            self._alternatives[field] = {}
+        self._alternatives[field][source] = {
+            "language": _language,
+            "value": value
+        }
+
     def to_dict(self) -> Dict:
         """Creates a dict of this Organization that is suitable for being
         transformed to JSON and imported.
@@ -151,12 +187,15 @@ class Organization(object):
             "registration_country": self._registration_country,
             "registation_id": self._registration_id,
             "registrations": self._registrations,
+            "alternatives": self._alternatives,
             "ids": self.ids,
             "name": self.name,
+            "source": self.source,
             "website": self.website,
             "mailing_address": self.mailing_address,
             "phone": self.phone,
             "year_founded": int(self.year_founded) if self.year_founded else None,
+            "language": self.language,
             "inactive": self.inactive or None
         }
         for key, value in self.external_field.items():
@@ -167,6 +206,8 @@ class Organization(object):
         output = "Organization {}".format(self.id or "[NO ID]")
         if self.name:
             output += "\n  Name: {}".format(self.name)
+        if self.source:
+            output += "\n  Source: {}".format(self.source)
         if self._registration_country:
             output += "\n  Registration Country: {}".format(self._registration_country)
         if self._registration_id:

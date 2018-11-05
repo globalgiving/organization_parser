@@ -8,6 +8,7 @@ def parse_record(entry):
 
     new_organization = Organization()
     new_organization.id = "o.example.{}".format(fields[0])
+    new_organization.source = "example"
     new_organization.name = ' '.join([i.capitalize() for i in fields[1].split(' ')])
     new_organization.add_registration("US", fields[0])
     new_organization.ids["example"] = fields[0]

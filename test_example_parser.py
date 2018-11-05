@@ -45,17 +45,17 @@ temp_org = None
 test_cases = [
     pytest.param(
         "576,SHAVE THE WHALES,shavethewhales.org,123 Fake Street,Nowhere,AL,00321",
-        {'id': 'o.example.576', '_registration_country': 'US', '_registration_id': '576', '_registrations': [{'country': 'US', 'id': '576'}], 'ids': {'example': '576'}, 'name': 'Shave The Whales', 'website': 'http://shavethewhales.org', 'mailing_address': {'address_1': '123 Fake Street', 'city': 'Nowhere', 'state': 'AL', 'postal': '00321', 'country': 'United States'}, 'phone': None, 'year_founded': None, 'inactive': False, 'external_field': {}},
+        {'id': 'o.example.576', '_registration_country': 'US', '_registration_id': '576', '_registrations': [{'country': 'US', 'id': '576'}], 'ids': {'example': '576'}, 'name': 'Shave The Whales', 'website': 'http://shavethewhales.org', 'mailing_address': {'address_1': '123 Fake Street', 'city': 'Nowhere', 'state': 'AL', 'postal': '00321', 'country': 'United States'}, 'phone': None, 'year_founded': None, 'inactive': False, 'source': 'example', 'language': 'en', '_alternatives': {}, 'external_field': {}},
         id="576"
     ),
     pytest.param(
         "982,Save the bunnies,,,,,",
-        {'id': 'o.example.982', '_registration_country': 'US', '_registration_id': '982', '_registrations': [{'country': 'US', 'id': '982'}], 'ids': {'example': '982'}, 'name': 'Save The Bunnies', 'website': None, 'mailing_address': {'country': 'United States'}, 'phone': None, 'year_founded': None, 'inactive': False, 'external_field': {}},
+        {'id': 'o.example.982', '_registration_country': 'US', '_registration_id': '982', '_registrations': [{'country': 'US', 'id': '982'}], 'ids': {'example': '982'}, 'name': 'Save The Bunnies', 'website': None, 'mailing_address': {'country': 'United States'}, 'phone': None, 'year_founded': None, 'inactive': False, 'source': 'example', 'language': 'en', '_alternatives': {}, 'external_field': {}},
         id="982"
     ),
     pytest.param(
         "1230,Water My Flowrs,https://www.flowers.org/,431 Flower Way,Petaltown,FL,33435",
-        {'id': 'o.example.1230', '_registration_country': 'US', '_registration_id': '1230', '_registrations': [{'country': 'US', 'id': '1230'}], 'ids': {'example': '1230'}, 'name': 'Water My Flowrs', 'website': 'https://www.flowers.org/', 'mailing_address': {'address_1': '431 Flower Way', 'city': 'Petaltown', 'state': 'FL', 'postal': '33435', 'country': 'United States'}, 'phone': None, 'year_founded': None, 'inactive': False, 'external_field': {}},
+        {'id': 'o.example.1230', '_registration_country': 'US', '_registration_id': '1230', '_registrations': [{'country': 'US', 'id': '1230'}], 'ids': {'example': '1230'}, 'name': 'Water My Flowrs', 'website': 'https://www.flowers.org/', 'mailing_address': {'address_1': '431 Flower Way', 'city': 'Petaltown', 'state': 'FL', 'postal': '33435', 'country': 'United States'}, 'phone': None, 'year_founded': None, 'inactive': False, 'source': 'example', 'language': 'en', '_alternatives': {}, 'external_field': {}},
         id="1230"
     ),
     pytest.param(
